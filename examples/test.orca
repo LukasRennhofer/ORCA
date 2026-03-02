@@ -1,0 +1,38 @@
+#import [orc]
+
+// This code demonstrates the use of optional types and safe stack operations in Orca.
+// Btw. this is just a design idea, so dont try to compile this :)
+
+// 'something' pushes a value onto an optional stack safely
+orc::i32 something(x: mut orc::linked_stack?, y: orc::i32) {
+    // check if x exists (optional)
+    if (x)
+        // push y onto the stack, result is guaranteed valid
+        mut result: orc::i32! = x->push(y);
+        // optionally, we could return the pushed value
+        >> result;
+    else
+        // if x doesn't exist, return a default value
+        >> -1;
+    end
+}
+
+// main function
+orc::i32 main() {
+    // create a new linked_stack (mutable, guaranteed valid)
+    mut stack: orc::linked_stack! = orc::linked_stack!();
+    
+    // push values safely
+    something(&stack, 42);
+
+    // Or push it with this reference? Must choose one!
+    ref<stack> ~> something(7);
+
+    something(ref<stack>, 7);
+    
+    // peek top of stack safely
+    mut top: orc::i32! = stack->peek()?;
+    
+    // return the top element
+    >> top;
+}

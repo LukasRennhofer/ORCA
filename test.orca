@@ -1,0 +1,27 @@
+/*
+author: Lukas Rennhofer @2026
+
+This file tests ORCA
+*/
+
+mut a: long = 9;
+test: bool = true;
+DEBUG;
+
+if test
+	mut b: long = 2;
+	a = a + b;
+	DEBUG;
+end
+
+if false {
+	mut c: long = 999;
+	a = a + c;
+	DEBUG;
+} else if true {
+	mut d: long = 5;
+	a = a + d;
+	DEBUG;
+}
+
+DEBUG;
